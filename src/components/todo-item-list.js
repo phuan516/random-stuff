@@ -1,4 +1,5 @@
-import useSWR from "swr";
+import useSWR, { useSWRConfig } from "swr";
+import { useState, useEffect } from "react";
 
 import fetcher from "../lib/fetcher";
 
@@ -16,14 +17,28 @@ const statusColor = {
   Archived: "#e31e1e",
 };
 
+const updateStatus = async (title, status) => {
+  await fetch(`/api/update-todo-status`, {
+    method: "POST",
+    body: JSON.stringify({ title, status }),
+  });
+};
+
 const TodoItemList = () => {
+  const { mutate } = useSWRConfig();
   const { data } = useSWR("/api/get-todo-items", fetcher);
+
+  const [todoList, setTodoList] = useState();
+
+  useEffect(() => {
+    data && setTodoList(data);
+  }, [data]);
 
   return (
     <div>
-      {data && (
+      {todoList && (
         <div className="flex flex-col mt-4">
-          {data.map((item) => (
+          {todoList.map((item) => (
             <div
               key={item._id}
               className="w-96 p-3 rounded-md shadow-lg mx-2 my-1 bg-white"
@@ -55,15 +70,33 @@ const TodoItemList = () => {
               <h2>{item.dueDate}</h2>
               <button
                 style={{ backgroundColor: "#8957e5" }}
-                className="text-white rounded-md p-2 border-2 border-transparent hover:border-violet-700"
+                className="text-white font-bold rounded-md p-2 border-2 border-transparent hover:border-violet-700"
+                onClick={() => {
+                  updateStatus(item.title, "Completed");
+                  mutate("/api/get-todo-items");
+                }}
               >
                 Completed
               </button>
               <button
                 style={{ backgroundColor: "#e31e1e" }}
-                className="text-white rounded-md p-2 ml-2 border-2 border-transparent hover:border-red-700"
+                className="text-white font-bold rounded-md p-2 ml-2 border-2 border-transparent hover:border-red-700"
+                onClick={() => {
+                  updateStatus(item.title, "Archived");
+                  mutate("/api/get-todo-items");
+                }}
               >
                 Archive
+              </button>
+              <button
+                style={{ backgroundColor: "#24e31e" }}
+                className="font-bold rounded-md p-2 ml-2 border-2 border-transparent hover:border-green-500"
+                onClick={() => {
+                  updateStatus(item.title, "In Progress");
+                  mutate("/api/get-todo-items");
+                }}
+              >
+                In Progress
               </button>
             </div>
           ))}

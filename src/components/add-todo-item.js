@@ -5,11 +5,10 @@ import useSWR from "swr";
 import fetcher from "../lib/fetcher";
 
 const addTodoItem = async (item) => {
-  const response = await fetch(`/api/add-todo-item`, {
+  await fetch(`/api/add-todo-item`, {
     method: "POST",
     body: JSON.stringify(item),
   });
-  console.log(response);
 };
 
 const AddTodoItem = () => {
@@ -25,7 +24,7 @@ const AddTodoItem = () => {
       setLabels(
         data.map((label) => ({ value: label.name, label: label.name }))
       );
-  }, [labels, data]);
+  }, [data]);
 
   return (
     <div className="w-96 h-64 p-3 rounded-md shadow-lg m-5 bg-white">
