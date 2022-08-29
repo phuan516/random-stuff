@@ -16,7 +16,7 @@ const handle = async (req, res) => {
     title,
     labels,
     dueDate,
-    status: "in progress",
+    status: "In Progress",
   });
 
   res.status(200).json();

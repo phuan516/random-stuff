@@ -1,5 +1,8 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Select from "react-select";
+import useSWR from "swr";
+
+import fetcher from "../lib/fetcher";
 
 const addTodoItem = async (item) => {
   const response = await fetch(`/api/add-todo-item`, {
@@ -9,18 +12,23 @@ const addTodoItem = async (item) => {
   console.log(response);
 };
 
-const labels = [
-  { value: "dashboard", label: "dashboard" },
-  { value: "assignment", label: "assignment" },
-];
-
 const AddTodoItem = () => {
-  const [title, setTitle] = useState("");
-  const [date, setDate] = useState("");
+  const [title, setTitle] = useState(undefined);
+  const [date, setDate] = useState(undefined);
   const [labelsToAdd, setLabelsToAdd] = useState();
+  const [labels, setLabels] = useState();
+
+  const { data } = useSWR("/api/get-labels", fetcher);
+
+  useEffect(() => {
+    data &&
+      setLabels(
+        data.map((label) => ({ value: label.name, label: label.name }))
+      );
+  }, [labels, data]);
 
   return (
-    <div className="w-96 h-64 p-3 rounded-md shadow m-5 bg-white">
+    <div className="w-96 h-64 p-3 rounded-md shadow-lg m-5 bg-white">
       <form
         className=""
         onSubmit={() =>
