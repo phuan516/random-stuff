@@ -9,7 +9,7 @@ const handle = async (req, res) => {
   const { title, labelsToAdd, dueDate } = JSON.parse(req.body);
 
   const labels = await labelsCollection
-    .find({ name: { $in: [...labelsToAdd] } })
+    .find({ name: { $in: [...labelsToAdd.map((label) => label.value)] } })
     .toArray();
 
   await todoCollection.insertOne({
