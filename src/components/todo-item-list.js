@@ -25,6 +25,8 @@ const updateStatus = async (title, status) => {
 };
 
 const sortTodoList = (todoList) => {
+  console.log(todoList);
+
   const inProgressList = todoList.filter(
     (todoItem) => todoItem.status === "In Progress"
   );
@@ -53,7 +55,17 @@ const TodoItemList = () => {
   const { mutate } = useSWRConfig();
   const { data } = useSWR("/api/get-todo-items", fetcher);
 
-  const [todoList, setTodoList] = useState();
+  const [todoList, setTodoList] = useState(undefined);
+
+  const updateLocal = (title, status) => {
+    updateStatus(title, status);
+    mutate("/api/get-todo-items");
+    const objIndex = todoList.findIndex((obj) => obj.title === title);
+
+    const updatedTodoList = todoList;
+    updatedTodoList[objIndex].status = status;
+    setTodoList(updatedTodoList);
+  };
 
   useEffect(() => {
     data && setTodoList(data);
@@ -97,8 +109,7 @@ const TodoItemList = () => {
                 style={{ backgroundColor: "#8957e5" }}
                 className="text-white font-bold rounded-md p-2 border-2 border-transparent hover:border-violet-700"
                 onClick={() => {
-                  updateStatus(item.title, "Completed");
-                  mutate("/api/get-todo-items");
+                  updateLocal(item.title, "Completed");
                 }}
               >
                 Completed
@@ -107,8 +118,7 @@ const TodoItemList = () => {
                 style={{ backgroundColor: "#e31e1e" }}
                 className="text-white font-bold rounded-md p-2 ml-2 border-2 border-transparent hover:border-red-700"
                 onClick={() => {
-                  updateStatus(item.title, "Archived");
-                  mutate("/api/get-todo-items");
+                  updateLocal(item.title, "Archived");
                 }}
               >
                 Archive
@@ -117,8 +127,7 @@ const TodoItemList = () => {
                 style={{ backgroundColor: "#24e31e" }}
                 className="font-bold rounded-md p-2 ml-2 border-2 border-transparent hover:border-green-500"
                 onClick={() => {
-                  updateStatus(item.title, "In Progress");
-                  mutate("/api/get-todo-items");
+                  updateLocal(item.title, "In Progress");
                 }}
               >
                 In Progress
