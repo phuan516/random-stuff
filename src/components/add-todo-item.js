@@ -41,6 +41,7 @@ const AddTodoItem = () => {
         <label className="block text-sm font-medium text-gray-700">Title</label>
         <input
           type="text"
+          required
           value={title}
           onChange={(e) => setTitle(e.target.value)}
           className="pl-3 block w-full border-gray-300 rounded-sm h-9 border bg-white focus:border-blue-400 hover:cursor-pointer hover:border-gray-400"
@@ -50,6 +51,7 @@ const AddTodoItem = () => {
         </label>
         <input
           type="date"
+          required
           value={date}
           onChange={(e) => setDate(e.target.value)}
           className="block w-full pl-3 border-gray-300 rounded-sm h-9 border bg-white focus:border-blue-400 pr-2 hover:cursor-pointer hover:border-gray-400"

@@ -14,7 +14,6 @@ const invertColor = (hex) => {
 const statusColor = {
   Completed: "#8957e5",
   "In Progress": "#24e31e",
-  Archived: "#e31e1e",
 };
 
 const updateStatus = async (title, status) => {
@@ -31,15 +30,16 @@ const sortTodoList = (todoList) => {
   const completedList = todoList.filter(
     (todoItem) => todoItem.status === "Completed"
   );
-  const archivedList = todoList.filter(
-    (todoItem) => todoItem.status === "Archived"
-  );
 
   inProgressList.sort((a, b) => {
     return new Date(a.dueDate) - new Date(b.dueDate);
   });
 
-  return [...inProgressList, ...completedList, ...archivedList];
+  completedList.sort((a, b) => {
+    return new Date(a.dueDate) - new Date(b.dueDate);
+  });
+
+  return [...inProgressList, ...completedList];
 };
 
 const TodoItemList = () => {

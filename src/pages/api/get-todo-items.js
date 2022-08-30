@@ -5,7 +5,9 @@ const handle = async (req, res) => {
   const db = client.db(process.env.MONGODB_DB);
   const todoCollection = db.collection("todo");
 
-  const todos = await todoCollection.find({}).toArray();
+  const todos = await todoCollection
+    .find({ status: { $in: ["In Progress", "Completed"] } })
+    .toArray();
 
   res.status(200).json(todos);
 };
