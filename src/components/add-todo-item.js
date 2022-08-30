@@ -1,26 +1,33 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Select from "react-select";
+import useSWR from "swr";
+
+import fetcher from "../lib/fetcher";
 
 const addTodoItem = async (item) => {
-  const response = await fetch(`/api/add-todo-item`, {
+  await fetch(`/api/add-todo-item`, {
     method: "POST",
     body: JSON.stringify(item),
   });
-  console.log(response);
 };
 
-const labels = [
-  { value: "dashboard", label: "dashboard" },
-  { value: "assignment", label: "assignment" },
-];
-
 const AddTodoItem = () => {
-  const [title, setTitle] = useState("");
-  const [date, setDate] = useState("");
-  const [labelsToAdd, setLabelsToAdd] = useState();
+  const [title, setTitle] = useState(undefined);
+  const [date, setDate] = useState(undefined);
+  const [labelsToAdd, setLabelsToAdd] = useState([]);
+  const [labels, setLabels] = useState();
+
+  const { data } = useSWR("/api/get-labels", fetcher);
+
+  useEffect(() => {
+    data &&
+      setLabels(
+        data.map((label) => ({ value: label.name, label: label.name }))
+      );
+  }, [data]);
 
   return (
-    <div className="w-96 h-64 p-3 rounded-md shadow m-5 bg-white">
+    <div className="w-96 h-64 p-3 rounded-md shadow-lg m-5 bg-white">
       <form
         className=""
         onSubmit={() =>
@@ -34,6 +41,7 @@ const AddTodoItem = () => {
         <label className="block text-sm font-medium text-gray-700">Title</label>
         <input
           type="text"
+          required
           value={title}
           onChange={(e) => setTitle(e.target.value)}
           className="pl-3 block w-full border-gray-300 rounded-sm h-9 border bg-white focus:border-blue-400 hover:cursor-pointer hover:border-gray-400"
@@ -43,6 +51,7 @@ const AddTodoItem = () => {
         </label>
         <input
           type="date"
+          required
           value={date}
           onChange={(e) => setDate(e.target.value)}
           className="block w-full pl-3 border-gray-300 rounded-sm h-9 border bg-white focus:border-blue-400 pr-2 hover:cursor-pointer hover:border-gray-400"

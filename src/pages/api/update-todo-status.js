@@ -5,10 +5,10 @@ const handle = async (req, res) => {
   const db = client.db(process.env.MONGODB_DB);
   const todoCollection = db.collection("todo");
 
-  const todos = await todoCollection
-    .find({ status: { $in: ["In Progress", "Completed"] } })
-    .toArray();
+  const { title, status } = JSON.parse(req.body);
 
-  res.status(200).json(todos);
+  await todoCollection.updateOne({ title }, { $set: { status } });
+
+  res.status(200).json();
 };
 export default handle;

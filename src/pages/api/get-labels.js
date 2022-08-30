@@ -3,12 +3,10 @@ import clientPromise from "../../lib/mongoClient";
 const handle = async (req, res) => {
   const client = await clientPromise;
   const db = client.db(process.env.MONGODB_DB);
-  const todoCollection = db.collection("todo");
+  const labelsCollection = db.collection("labels");
 
-  const todos = await todoCollection
-    .find({ status: { $in: ["In Progress", "Completed"] } })
-    .toArray();
+  const labels = await labelsCollection.find({}).toArray();
 
-  res.status(200).json(todos);
+  res.status(200).json(labels);
 };
 export default handle;
