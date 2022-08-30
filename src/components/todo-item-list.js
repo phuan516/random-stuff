@@ -24,6 +24,24 @@ const updateStatus = async (title, status) => {
   });
 };
 
+const sortTodoList = (todoList) => {
+  const inProgressList = todoList.filter(
+    (todoItem) => todoItem.status === "In Progress"
+  );
+  const completedList = todoList.filter(
+    (todoItem) => todoItem.status === "Completed"
+  );
+  const archivedList = todoList.filter(
+    (todoItem) => todoItem.status === "Archived"
+  );
+
+  inProgressList.sort((a, b) => {
+    return new Date(a.dueDate) - new Date(b.dueDate);
+  });
+
+  return [...inProgressList, ...completedList, ...archivedList];
+};
+
 const TodoItemList = () => {
   const { mutate } = useSWRConfig();
   const { data } = useSWR("/api/get-todo-items", fetcher);
@@ -38,7 +56,7 @@ const TodoItemList = () => {
     <div>
       {todoList && (
         <div className="flex flex-col mt-4">
-          {todoList.map((item) => (
+          {sortTodoList(todoList).map((item) => (
             <div
               key={item._id}
               className="w-96 p-3 rounded-md shadow-lg mx-2 my-1 bg-white"

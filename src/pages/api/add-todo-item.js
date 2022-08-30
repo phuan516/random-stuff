@@ -15,7 +15,7 @@ const handle = async (req, res) => {
   await todoCollection.insertOne({
     title,
     labels,
-    dueDate,
+    dueDate: new Date(dueDate),
     status: "In Progress",
   });
 

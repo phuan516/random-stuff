@@ -14,7 +14,7 @@ const addTodoItem = async (item) => {
 const AddTodoItem = () => {
   const [title, setTitle] = useState(undefined);
   const [date, setDate] = useState(undefined);
-  const [labelsToAdd, setLabelsToAdd] = useState();
+  const [labelsToAdd, setLabelsToAdd] = useState([]);
   const [labels, setLabels] = useState();
 
   const { data } = useSWR("/api/get-labels", fetcher);
