@@ -1,5 +1,6 @@
 import useSWR, { useSWRConfig } from "swr";
 import { useState, useEffect } from "react";
+import { format } from "date-fns";
 
 import fetcher from "../lib/fetcher";
 
@@ -40,6 +41,12 @@ const sortTodoList = (todoList) => {
   });
 
   return [...inProgressList, ...completedList];
+};
+
+const formatDate = (date) => {
+  const dt = new Date(date);
+  const dtDateOnly = new Date(dt.valueOf() + dt.getTimezoneOffset() * 60000);
+  return format(dtDateOnly, "yyy/MM/dd");
 };
 
 const TodoItemList = () => {
@@ -85,7 +92,7 @@ const TodoItemList = () => {
                 ))}
               </div>
               <h3>DUE DATE:</h3>
-              <h2>{item.dueDate}</h2>
+              <h2>{formatDate(new Date(item.dueDate))}</h2>
               <button
                 style={{ backgroundColor: "#8957e5" }}
                 className="text-white font-bold rounded-md p-2 border-2 border-transparent hover:border-violet-700"
