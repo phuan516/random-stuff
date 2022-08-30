@@ -17,13 +17,6 @@ const statusColor = {
   "In Progress": "#24e31e",
 };
 
-const updateStatus = async (title, status) => {
-  await fetch(`/api/update-todo-status`, {
-    method: "POST",
-    body: JSON.stringify({ title, status }),
-  });
-};
-
 const sortTodoList = (todoList) => {
   const inProgressList = todoList.filter(
     (todoItem) => todoItem.status === "In Progress"
@@ -53,7 +46,15 @@ const TodoItemList = () => {
   const { mutate } = useSWRConfig();
   const { data } = useSWR("/api/get-todo-items", fetcher);
 
-  const [todoList, setTodoList] = useState(undefined);
+  const updateStatus = async (title, status) => {
+    await fetch(`/api/update-todo-status`, {
+      method: "POST",
+      body: JSON.stringify({ title, status }),
+    });
+    mutate("/api/get-todo-items");
+  };
+
+  const [todoList, setTodoList] = useState();
 
   const updateLocal = (title, status) => {
     const objIndex = todoList.findIndex((obj) => obj.title === title);
@@ -63,7 +64,6 @@ const TodoItemList = () => {
     setTodoList(updatedTodoList);
 
     updateStatus(title, status);
-    mutate("/api/get-todo-items");
   };
 
   useEffect(() => {
