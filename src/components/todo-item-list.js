@@ -25,8 +25,6 @@ const updateStatus = async (title, status) => {
 };
 
 const sortTodoList = (todoList) => {
-  console.log(todoList);
-
   const inProgressList = todoList.filter(
     (todoItem) => todoItem.status === "In Progress"
   );
@@ -58,13 +56,14 @@ const TodoItemList = () => {
   const [todoList, setTodoList] = useState(undefined);
 
   const updateLocal = (title, status) => {
-    updateStatus(title, status);
-    mutate("/api/get-todo-items");
     const objIndex = todoList.findIndex((obj) => obj.title === title);
 
     const updatedTodoList = todoList;
     updatedTodoList[objIndex].status = status;
     setTodoList(updatedTodoList);
+
+    updateStatus(title, status);
+    mutate("/api/get-todo-items");
   };
 
   useEffect(() => {
