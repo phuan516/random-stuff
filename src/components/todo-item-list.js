@@ -17,13 +17,6 @@ const statusColor = {
   "In Progress": "#24e31e",
 };
 
-const updateStatus = async (title, status) => {
-  await fetch(`/api/update-todo-status`, {
-    method: "POST",
-    body: JSON.stringify({ title, status }),
-  });
-};
-
 const sortTodoList = (todoList) => {
   const inProgressList = todoList.filter(
     (todoItem) => todoItem.status === "In Progress"
@@ -53,7 +46,25 @@ const TodoItemList = () => {
   const { mutate } = useSWRConfig();
   const { data } = useSWR("/api/get-todo-items", fetcher);
 
+  const updateStatus = async (title, status) => {
+    await fetch(`/api/update-todo-status`, {
+      method: "POST",
+      body: JSON.stringify({ title, status }),
+    });
+    mutate("/api/get-todo-items");
+  };
+
   const [todoList, setTodoList] = useState();
+
+  const updateLocal = (title, status) => {
+    const objIndex = todoList.findIndex((obj) => obj.title === title);
+
+    const updatedTodoList = todoList;
+    updatedTodoList[objIndex].status = status;
+    setTodoList(updatedTodoList);
+
+    updateStatus(title, status);
+  };
 
   useEffect(() => {
     data && setTodoList(data);
@@ -66,7 +77,7 @@ const TodoItemList = () => {
           {sortTodoList(todoList).map((item) => (
             <div
               key={item._id}
-              className="w-96 p-3 rounded-md shadow-lg mx-2 my-1 bg-white"
+              className="w-96 p-3 rounded-md shadow-lg my-1 bg-white"
             >
               <h1 className="font-bold text-lg">{item.title}</h1>
               <div className="my-2">
@@ -97,8 +108,7 @@ const TodoItemList = () => {
                 style={{ backgroundColor: "#8957e5" }}
                 className="text-white font-bold rounded-md p-2 border-2 border-transparent hover:border-violet-700"
                 onClick={() => {
-                  updateStatus(item.title, "Completed");
-                  mutate("/api/get-todo-items");
+                  updateLocal(item.title, "Completed");
                 }}
               >
                 Completed
@@ -107,8 +117,7 @@ const TodoItemList = () => {
                 style={{ backgroundColor: "#e31e1e" }}
                 className="text-white font-bold rounded-md p-2 ml-2 border-2 border-transparent hover:border-red-700"
                 onClick={() => {
-                  updateStatus(item.title, "Archived");
-                  mutate("/api/get-todo-items");
+                  updateLocal(item.title, "Archived");
                 }}
               >
                 Archive
@@ -117,8 +126,7 @@ const TodoItemList = () => {
                 style={{ backgroundColor: "#24e31e" }}
                 className="font-bold rounded-md p-2 ml-2 border-2 border-transparent hover:border-green-500"
                 onClick={() => {
-                  updateStatus(item.title, "In Progress");
-                  mutate("/api/get-todo-items");
+                  updateLocal(item.title, "In Progress");
                 }}
               >
                 In Progress

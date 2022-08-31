@@ -29,7 +29,6 @@ const AddTodoItem = () => {
   return (
     <div className="w-96 h-64 p-3 rounded-md shadow-lg m-5 bg-white">
       <form
-        className=""
         onSubmit={() =>
           addTodoItem({
             title,
@@ -65,7 +64,6 @@ const AddTodoItem = () => {
           options={labels}
           isMulti
         />
-
         <input
           className="border border-gray-300 rounded-sm w-full h-10 mt-4 hover:cursor-pointer hover:border-gray-400"
           type="submit"
