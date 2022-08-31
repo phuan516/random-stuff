@@ -77,7 +77,7 @@ const TodoItemList = () => {
           {sortTodoList(todoList).map((item) => (
             <div
               key={item._id}
-              className="w-96 p-3 rounded-md shadow-lg mx-2 my-1 bg-white"
+              className="w-96 p-3 rounded-md shadow-lg my-1 bg-white"
             >
               <h1 className="font-bold text-lg">{item.title}</h1>
               <div className="my-2">
