@@ -32,7 +32,7 @@ const AddLabel = () => {
       <input
         className="border border-gray-300 rounded-sm w-full h-10 mt-4 hover:cursor-pointer hover:border-gray-400"
         type="submit"
-        value="+"
+        value="Add"
       />
     </form>
   );

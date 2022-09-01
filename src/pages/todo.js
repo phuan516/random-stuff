@@ -1,15 +1,11 @@
 import AddTodoItem from "../components/add-todo-item";
-import LabelSetting from "../components/label-settings";
-import TodoItemList from "../components/todo-item-list";
+import TodoList from "../components/todo-list";
 
 const Todo = () => {
   return (
     <div className="flex">
-      <div>
-        <AddTodoItem />
-        <LabelSetting />
-      </div>
-      <TodoItemList />
+      <AddTodoItem />
+      <TodoList />
     </div>
   );
 };
