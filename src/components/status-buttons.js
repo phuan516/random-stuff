@@ -4,14 +4,14 @@ const buttonsToDisplay = (status) => {
   return allStatus.filter((s) => s !== status);
 };
 
-const StatusButtons = ({ status, update }) => {
+const StatusButtons = ({ status, title, update }) => {
   return (
-    <div>
+    <div className=" flex flex-col">
       {buttonsToDisplay(status).map((s) => (
         <button
           key={s}
           style={{ backgroundColor: statusColor[s] }}
-          className="rounded-md p-1 mr-2 text-white text-xs"
+          className="rounded-md p-1 mb-2 text-white text-xs"
           onClick={() => {
             update(title, s);
           }}

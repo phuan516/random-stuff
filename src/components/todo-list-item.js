@@ -23,12 +23,10 @@ const TodoListItem = ({ title, status, dueDate, labels, update }) => {
 
       {detailedDisplay && (
         <div>
-          <div className="my-2">
-            <p>{status}</p>
-            <div
-              style={{ backgroundColor: `${statusColor[status]}` }}
-              className="bg-green-400 h-3 rounded-full"
-            ></div>
+          <div className="my-2 font-bold">
+            <p style={{ color: `${statusColor[status]}` }}>
+              {status.toUpperCase()}
+            </p>
           </div>
           <div className="relative no-wrap flex flex-row my-2">
             {labels.map((label) => (
@@ -44,36 +42,8 @@ const TodoListItem = ({ title, status, dueDate, labels, update }) => {
               </span>
             ))}
           </div>
-          <h3>DUE DATE:</h3>
-          <h2>{formatDate(new Date(dueDate))}</h2>
-          <StatusButtons status={status} update={update} />
-          {/* <button
-            style={{ backgroundColor: statusColor["Done"] }}
-            className="text-white font-bold rounded-md p-2 border-2 border-transparent hover:border-violet-700"
-            onClick={() => {
-              updateLocal(title, "Done");
-            }}
-          >
-            Done
-          </button>
-          <button
-            style={{ backgroundColor: statusColor["Archived"] }}
-            className="text-white font-bold rounded-md p-2 ml-2 border-2 border-transparent hover:border-red-700"
-            onClick={() => {
-              updateLocal(title, "Archived");
-            }}
-          >
-            Archive
-          </button>
-          <button
-            style={{ backgroundColor: statusColor["Working"] }}
-            className="font-bold rounded-md p-2 ml-2 border-2 border-transparent hover:border-green-500"
-            onClick={() => {
-              updateLocal(title, "Working");
-            }}
-          >
-            Working
-          </button> */}
+          <h2 className="font-bold mb-2">{formatDate(new Date(dueDate))}</h2>
+          <StatusButtons status={status} title={title} update={update} />
         </div>
       )}
     </div>
