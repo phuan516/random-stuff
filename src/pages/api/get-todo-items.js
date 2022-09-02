@@ -6,7 +6,7 @@ const handle = async (req, res) => {
   const todoCollection = db.collection("todo");
 
   const todos = await todoCollection
-    .find({ status: { $in: ["In Progress", "Completed"] } })
+    .find({ status: { $in: ["Ready", "Working", "Done"] } })
     .toArray();
 
   res.status(200).json(todos);

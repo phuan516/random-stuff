@@ -16,7 +16,7 @@ const handle = async (req, res) => {
     title,
     labels,
     dueDate: new Date(dueDate),
-    status: "In Progress",
+    status: "Ready",
     createdAt: new Date(),
   });
 
