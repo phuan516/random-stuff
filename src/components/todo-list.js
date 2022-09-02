@@ -5,22 +5,25 @@ import fetcher from "../lib/fetcher";
 import TodoListItem from "./todo-list-item";
 
 const sortTodoList = (todoList) => {
-  const inProgressList = todoList.filter(
-    (todoItem) => todoItem.status === "In Progress"
+  const ReadyList = todoList.filter((todoItem) => todoItem.status === "Ready");
+  const workingList = todoList.filter(
+    (todoItem) => todoItem.status === "Working"
   );
-  const completedList = todoList.filter(
-    (todoItem) => todoItem.status === "Completed"
-  );
+  const doneList = todoList.filter((todoItem) => todoItem.status === "Done");
 
-  inProgressList.sort((a, b) => {
+  ReadyList.sort((a, b) => {
     return new Date(a.dueDate) - new Date(b.dueDate);
   });
 
-  completedList.sort((a, b) => {
+  workingList.sort((a, b) => {
     return new Date(a.dueDate) - new Date(b.dueDate);
   });
 
-  return [...inProgressList, ...completedList];
+  doneList.sort((a, b) => {
+    return new Date(a.dueDate) - new Date(b.dueDate);
+  });
+
+  return [...ReadyList, ...workingList, ...doneList];
 };
 
 const TodoList = () => {
@@ -62,7 +65,7 @@ const TodoList = () => {
               dueDate={item.dueDate}
               status={item.status}
               labels={item.labels}
-              updateLocal={updateLocal}
+              update={updateLocal}
             />
           ))}
         </div>

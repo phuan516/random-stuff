@@ -2,14 +2,10 @@ import { useState } from "react";
 
 import { invertColor } from "../lib/invert-color";
 import { formatDate } from "../lib/format-date";
+import { statusColor } from "../lib/status";
+import StatusButtons from "./status-buttons";
 
-const statusColor = {
-  Completed: "#8957e5",
-  "In Progress": "#24e31e",
-  Archived: "#e31e1e",
-};
-
-const TodoListItem = ({ title, status, dueDate, labels, updateLocal }) => {
+const TodoListItem = ({ title, status, dueDate, labels, update }) => {
   const [detailedDisplay, setDetailedDisplay] = useState(false);
 
   return (
@@ -50,14 +46,15 @@ const TodoListItem = ({ title, status, dueDate, labels, updateLocal }) => {
           </div>
           <h3>DUE DATE:</h3>
           <h2>{formatDate(new Date(dueDate))}</h2>
-          <button
-            style={{ backgroundColor: statusColor["Completed"] }}
+          <StatusButtons status={status} update={update} />
+          {/* <button
+            style={{ backgroundColor: statusColor["Done"] }}
             className="text-white font-bold rounded-md p-2 border-2 border-transparent hover:border-violet-700"
             onClick={() => {
-              updateLocal(title, "Completed");
+              updateLocal(title, "Done");
             }}
           >
-            Completed
+            Done
           </button>
           <button
             style={{ backgroundColor: statusColor["Archived"] }}
@@ -69,14 +66,14 @@ const TodoListItem = ({ title, status, dueDate, labels, updateLocal }) => {
             Archive
           </button>
           <button
-            style={{ backgroundColor: statusColor["In Progress"] }}
+            style={{ backgroundColor: statusColor["Working"] }}
             className="font-bold rounded-md p-2 ml-2 border-2 border-transparent hover:border-green-500"
             onClick={() => {
-              updateLocal(title, "In Progress");
+              updateLocal(title, "Working");
             }}
           >
-            In Progress
-          </button>
+            Working
+          </button> */}
         </div>
       )}
     </div>

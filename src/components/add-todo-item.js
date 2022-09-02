@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import Select from "react-select";
 import useSWR from "swr";
+import { format } from "date-fns";
 
 import fetcher from "../lib/fetcher";
 
@@ -13,7 +14,7 @@ const addTodoItem = async (item) => {
 
 const AddTodoItem = () => {
   const [title, setTitle] = useState(undefined);
-  const [date, setDate] = useState(undefined);
+  const [date, setDate] = useState(format(new Date(), "yyy-MM-dd").toString());
   const [labelsToAdd, setLabelsToAdd] = useState([]);
   const [labels, setLabels] = useState();
 
