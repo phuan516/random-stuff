@@ -5,10 +5,24 @@ const handle = async (req, res) => {
   const db = client.db(process.env.MONGODB_DB);
   const todoCollection = db.collection("todo");
 
-  const todos = await todoCollection
-    .find({ status: { $in: ["Ready", "Working", "Done"] } })
+  const todo = await todoCollection
+    .aggregate([
+      {
+        $match: {
+          status: { $in: ["Ready", "Working", "Done"] },
+        },
+      },
+      {
+        $group: {
+          _id: "$dueDate",
+          list: {
+            $push: "$$ROOT",
+          },
+        },
+      },
+    ])
     .toArray();
 
-  res.status(200).json(todos);
+  res.status(200).json(todo);
 };
 export default handle;
