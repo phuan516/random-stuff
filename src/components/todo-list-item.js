@@ -10,23 +10,17 @@ const TodoListItem = ({ title, status, dueDate, labels, update }) => {
 
   return (
     <div
-      className="w-96 p-3 rounded-md shadow-lg my-1 bg-white hover:cursor-pointer hover:shadow-2xl border-4"
-      style={{ borderColor: statusColor[status] }}
+      className="w-96 p-3 rounded-md shadow-lg my-1 hover:cursor-pointer hover:shadow-2xl text-white"
+      style={{ backgroundColor: statusColor[status] }}
       onClick={() => {
         setDetailedDisplay(!detailedDisplay);
       }}
     >
       <h1 className="font-bold text-lg">{title}</h1>
-      {!detailedDisplay && (
-        <h1 className="font-bold text-lg">{formatDate(new Date(dueDate))}</h1>
-      )}
-
       {detailedDisplay && (
         <div>
           <div className="my-2 font-bold">
-            <p style={{ color: `${statusColor[status]}` }}>
-              {status.toUpperCase()}
-            </p>
+            <p>{status.toUpperCase()}</p>
           </div>
           <div className="relative no-wrap flex flex-row my-2">
             {labels.map((label) => (
