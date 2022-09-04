@@ -9,6 +9,13 @@ const handle = async (req, res) => {
 
   await todoCollection.updateOne({ title }, { $set: { status } });
 
+  const fortNight = new Date(Date.now() - 12096e5);
+
+  await todoCollection.deleteMany({
+    status: "Deleted",
+    dueDate: { $lt: fortNight },
+  });
+
   res.status(200).json();
 };
 export default handle;
