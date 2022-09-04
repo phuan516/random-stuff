@@ -41,21 +41,23 @@ const TodoList = () => {
 
   const [todoList, setTodoList] = useState();
 
-  const updateLocal = (title, status) => {
-    const objIndex = todoList.findIndex((obj) => obj.title === title);
+  const updateLocal = (title, status, dueDate) => {
+    const objIndex = todoList.findIndex((obj) => obj._id === dueDate);
 
     const updatedTodoList = todoList;
-    updatedTodoList[objIndex].status = status;
-    setTodoList(updatedTodoList);
+    const listIndex = todoList[objIndex].list.findIndex(
+      (todo) => todo.title === title
+    );
 
+    updatedTodoList[objIndex].list[listIndex].status = status;
+
+    setTodoList(updatedTodoList);
     updateStatus(title, status);
   };
 
   useEffect(() => {
     data && setTodoList(data);
   }, [data]);
-
-  console.log(data);
 
   return (
     <div>

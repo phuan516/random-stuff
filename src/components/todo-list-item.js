@@ -26,7 +26,7 @@ const TodoListItem = ({ title, status, dueDate, labels, update }) => {
             {labels.map((label) => (
               <span
                 key={label.name}
-                className="py-0.5 p-3 rounded-full text-xs mr-2"
+                className="py-0.5 p-3 rounded-full text-xs mr-2 font-bold"
                 style={{
                   backgroundColor: `#${label.color}`,
                   color: `${invertColor(label.color)}`,
@@ -37,7 +37,12 @@ const TodoListItem = ({ title, status, dueDate, labels, update }) => {
             ))}
           </div>
           <h2 className="font-bold mb-2">{formatDate(new Date(dueDate))}</h2>
-          <StatusButtons status={status} title={title} update={update} />
+          <StatusButtons
+            status={status}
+            title={title}
+            update={update}
+            dueDate={dueDate}
+          />
         </div>
       )}
     </div>

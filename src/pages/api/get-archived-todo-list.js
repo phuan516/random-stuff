@@ -9,7 +9,7 @@ const handle = async (req, res) => {
     .aggregate([
       {
         $match: {
-          status: { $in: ["Ready", "Working", "Done"] },
+          status: "Archived",
         },
       },
       {
