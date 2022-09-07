@@ -9,6 +9,8 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@headlessui/react": "^1.7.0",
+    "@heroicons/react": "^1.0.6",
     "date-fns": "^2.29.2",
     "dotenv": "^16.0.1",
     "mongodb": "^4.9.0",
