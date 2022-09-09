@@ -2,7 +2,7 @@ import Select from "react-select";
 import { useEffect, useState } from "react";
 import useSWR from "swr";
 
-import fetcher from "../../../lib/fetcher";
+import { fetcher } from "../../../lib/fetcher";
 
 const deleteLabels = async (labels) => {
   await fetch(`/api/delete-labels`, {
@@ -17,6 +17,10 @@ const DeleteLabels = () => {
 
   const { data } = useSWR("/api/get-labels", fetcher);
 
+  const handleChange = (selectedOption) => {
+    setLabelsToDelete(selectedOption);
+  };
+
   useEffect(() => {
     data &&
       setLabels(
@@ -29,7 +33,7 @@ const DeleteLabels = () => {
       <label className="block text-sm font-medium text-gray-700">Labels</label>
       <Select
         defaultValue={labelsToDelete}
-        onChange={setLabelsToDelete}
+        onChange={handleChange}
         options={labels}
         isMulti
       />

@@ -1,5 +1,3 @@
-import { useEffect, useState } from "react";
-
 import { statusColor } from "../lib/status";
 
 const ArchivedTodoItems = ({ list, update }) => {

@@ -68,16 +68,18 @@ const TodoList = () => {
               <h1 className="font-bold text-lg">
                 {formatDate(new Date(day._id))}
               </h1>
-              {sortTodoList(day.list).map((item) => (
-                <TodoListItem
-                  key={item._id}
-                  title={item.title}
-                  dueDate={item.dueDate}
-                  status={item.status}
-                  labels={item.labels}
-                  update={updateLocal}
-                />
-              ))}
+              <div className="flex flex-row">
+                {sortTodoList(day.list).map((item) => (
+                  <TodoListItem
+                    key={item._id}
+                    title={item.title}
+                    dueDate={item.dueDate}
+                    status={item.status}
+                    labels={item.labels}
+                    update={updateLocal}
+                  />
+                ))}
+              </div>
             </div>
           ))}
         </div>

@@ -13,7 +13,7 @@ const TodoListItem = ({ title, status, dueDate, labels, update }) => {
 
   return (
     <div
-      className="w-96 p-3 rounded-md shadow-lg my-1 hover:cursor-pointer hover:shadow-2xl text-white"
+      className="w-96 p-3 rounded-md shadow-lg mr-1 hover:cursor-pointer hover:shadow-2xl text-white"
       style={{ backgroundColor: statusColor[status] }}
       onClick={() => {
         setDetailedDisplay(!detailedDisplay);
