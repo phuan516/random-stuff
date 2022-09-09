@@ -14,7 +14,7 @@ const addTodoItem = async (item) => {
 
 const AddTodoItem = () => {
   const [title, setTitle] = useState(undefined);
-  const [date, setDate] = useState(format(new Date(), "yyy-MM-dd").toString());
+  const [date, setDate] = useState(format(new Date(), "yyyy-MM-dd").toString());
   const [labelsToAdd, setLabelsToAdd] = useState([]);
   const [labels, setLabels] = useState();
 
