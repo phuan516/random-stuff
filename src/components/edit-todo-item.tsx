@@ -30,6 +30,10 @@ const EditTodoItem = ({ open, setOpen, title, selectedLabels, dueDate }) => {
     setOpen(false);
   };
 
+  const handleChange = (selectedOption) => {
+    setNewLabels(selectedOption);
+  };
+
   useEffect(() => {
     data &&
       setLabels(
@@ -109,7 +113,7 @@ const EditTodoItem = ({ open, setOpen, title, selectedLabels, dueDate }) => {
                         <Select
                           defaultValue={formatSelectData(selectedLabels)}
                           options={labels}
-                          onChange={setNewLabels}
+                          onChange={handleChange}
                           isMulti
                           menuPortalTarget={document.body}
                           styles={{

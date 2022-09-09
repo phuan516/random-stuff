@@ -3,7 +3,7 @@ import Select from "react-select";
 import useSWR from "swr";
 import { format } from "date-fns";
 
-import fetcher from "../lib/fetcher";
+import { fetcher } from "../lib/fetcher";
 
 const addTodoItem = async (item) => {
   await fetch(`/api/add-todo-item`, {
@@ -14,11 +14,15 @@ const addTodoItem = async (item) => {
 
 const AddTodoItem = () => {
   const [title, setTitle] = useState(undefined);
-  const [date, setDate] = useState(format(new Date(), "yyy-MM-dd").toString());
+  const [date, setDate] = useState(format(new Date(), "yyyy-MM-dd").toString());
   const [labelsToAdd, setLabelsToAdd] = useState([]);
   const [labels, setLabels] = useState();
 
   const { data } = useSWR("/api/get-labels", fetcher);
+
+  const handleChange = (selectedOption) => {
+    setLabelsToAdd(selectedOption);
+  };
 
   useEffect(() => {
     data &&
@@ -61,7 +65,7 @@ const AddTodoItem = () => {
         </label>
         <Select
           defaultValue={labelsToAdd}
-          onChange={setLabelsToAdd}
+          onChange={handleChange}
           options={labels}
           isMulti
         />

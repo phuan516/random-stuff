@@ -1,7 +1,7 @@
 import useSWR, { useSWRConfig } from "swr";
 import { useState, useEffect } from "react";
 
-import fetcher from "../lib/fetcher";
+import { fetcher } from "../lib/fetcher";
 import ArchivedTodoItems from "../components/archived-todo-items";
 
 const History = () => {
