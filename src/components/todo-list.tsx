@@ -1,7 +1,7 @@
 import useSWR, { useSWRConfig } from "swr";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 
-import fetcher from "../lib/fetcher";
+import { fetcher } from "../lib/fetcher";
 import TodoListItem from "./todo-list-item";
 import { formatDate } from "../lib/format-date";
 
@@ -13,15 +13,15 @@ const sortTodoList = (todoList) => {
   const doneList = todoList.filter((todoItem) => todoItem.status === "Done");
 
   ReadyList.sort((a, b) => {
-    return new Date(a.dueDate) - new Date(b.dueDate);
+    return new Date(a.dueDate).getTime() - new Date(b.dueDate).getTime();
   });
 
   workingList.sort((a, b) => {
-    return new Date(a.dueDate) - new Date(b.dueDate);
+    return new Date(a.dueDate).getTime() - new Date(b.dueDate).getTime();
   });
 
   doneList.sort((a, b) => {
-    return new Date(a.dueDate) - new Date(b.dueDate);
+    return new Date(a.dueDate).getTime() - new Date(b.dueDate).getTime();
   });
 
   return [...ReadyList, ...workingList, ...doneList];
@@ -39,20 +39,22 @@ const TodoList = () => {
     mutate("/api/get-todo-items");
   };
 
-  const [todoList, setTodoList] = useState();
+  const [todoList, setTodoList] = useState<any>();
 
   const updateLocal = (title, status, dueDate) => {
-    const objIndex = todoList.findIndex((obj) => obj._id === dueDate);
+    if (todoList) {
+      const objIndex = todoList.findIndex((obj) => obj._id === dueDate);
 
-    const updatedTodoList = todoList;
-    const listIndex = todoList[objIndex].list.findIndex(
-      (todo) => todo.title === title
-    );
+      const updatedTodoList = todoList;
+      const listIndex = todoList[objIndex].list.findIndex(
+        (todo) => todo.title === title
+      );
 
-    updatedTodoList[objIndex].list[listIndex].status = status;
+      updatedTodoList[objIndex].list[listIndex].status = status;
 
-    setTodoList(updatedTodoList);
-    updateStatus(title, status);
+      setTodoList(updatedTodoList);
+      updateStatus(title, status);
+    }
   };
 
   useEffect(() => {
@@ -61,7 +63,7 @@ const TodoList = () => {
 
   return (
     <div>
-      {todoList && (
+      {todoList ? (
         <div className="flex flex-col mt-4">
           {todoList.map((day) => (
             <div key={day._id}>
@@ -83,6 +85,8 @@ const TodoList = () => {
             </div>
           ))}
         </div>
+      ) : (
+        <h1>...Loading</h1>
       )}
     </div>
   );
