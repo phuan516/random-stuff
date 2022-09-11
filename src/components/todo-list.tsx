@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import { fetcher } from "../lib/fetcher";
 import TodoListItem from "./todo-list-item";
 import { formatDate } from "../lib/format-date";
-import { todayDate } from "../lib/todayDate";
+import { withinDate } from "../lib/within-date";
 import { sortTodoList } from "../lib/sortTodoList";
 
 const TodoList = () => {
@@ -41,21 +41,20 @@ const TodoList = () => {
     data && setTodoList(data);
   }, [data]);
 
+  console.log(withinDate("2022-09-11"));
+
   return (
     <div>
       {todoList ? (
         <div className="flex flex-col mt-4">
           {todoList.map((day) => (
             <div key={day._id}>
-              {formatDate(new Date(day._id)) === todayDate() ? (
-                <h1 className="font-bold text-lg text-blue-600">
-                  {formatDate(new Date(day._id))}
-                </h1>
-              ) : (
-                <h1 className="font-bold text-lg">
-                  {formatDate(new Date(day._id))}
-                </h1>
-              )}
+              <h1
+                className="font-bold text-lg"
+                style={{ color: withinDate(formatDate(new Date(day._id))) }}
+              >
+                {formatDate(new Date(day._id))}
+              </h1>
               <div className="flex flex-wrap">
                 {sortTodoList(day.list).map((item) => (
                   <TodoListItem
