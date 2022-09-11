@@ -32,7 +32,7 @@ const AddTodoItem = () => {
   }, [data]);
 
   return (
-    <div className="w-96 h-64 p-3 rounded-md shadow-lg m-5 bg-white">
+    <div className="h-64 w-96 flex-shrink-0 p-3 rounded-md shadow-lg m-5 bg-white">
       <form
         onSubmit={() =>
           addTodoItem({

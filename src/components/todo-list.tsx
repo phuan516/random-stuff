@@ -5,28 +5,7 @@ import { fetcher } from "../lib/fetcher";
 import TodoListItem from "./todo-list-item";
 import { formatDate } from "../lib/format-date";
 import { todayDate } from "../lib/todayDate";
-
-const sortTodoList = (todoList) => {
-  const ReadyList = todoList.filter((todoItem) => todoItem.status === "Ready");
-  const workingList = todoList.filter(
-    (todoItem) => todoItem.status === "Working"
-  );
-  const doneList = todoList.filter((todoItem) => todoItem.status === "Done");
-
-  ReadyList.sort((a, b) => {
-    return new Date(a.dueDate).getTime() - new Date(b.dueDate).getTime();
-  });
-
-  workingList.sort((a, b) => {
-    return new Date(a.dueDate).getTime() - new Date(b.dueDate).getTime();
-  });
-
-  doneList.sort((a, b) => {
-    return new Date(a.dueDate).getTime() - new Date(b.dueDate).getTime();
-  });
-
-  return [...ReadyList, ...workingList, ...doneList];
-};
+import { sortTodoList } from "../lib/sortTodoList";
 
 const TodoList = () => {
   const { mutate } = useSWRConfig();
@@ -77,7 +56,7 @@ const TodoList = () => {
                   {formatDate(new Date(day._id))}
                 </h1>
               )}
-              <div className="flex flex-row">
+              <div className="flex flex-wrap">
                 {sortTodoList(day.list).map((item) => (
                   <TodoListItem
                     key={item._id}
