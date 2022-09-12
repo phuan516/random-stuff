@@ -6,12 +6,10 @@ import useSWR from "swr";
 import { fetcher } from "../lib/fetcher";
 
 const formatSelectData = (data) => {
-  return (
-    data?.map((label) => ({
-      value: label.name,
-      label: label.name,
-    })) || []
-  );
+  return data.map((label) => ({
+    value: label.name,
+    label: label.name,
+  }));
 };
 
 const EditTodoItem = ({ open, setOpen, title, selectedLabels, dueDate }) => {

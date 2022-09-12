@@ -1,5 +1,5 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-import clientPromise from "../../lib/mongoClient";
+import clientPromise from "../../lib/mongo-client";
 
 const handler = async (req, res) => {
   const client = await clientPromise;

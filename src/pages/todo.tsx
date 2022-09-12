@@ -5,7 +5,7 @@ import TodoList from "../components/todo-list";
 
 const Todo = () => {
   return (
-    <div className="flex">
+    <div className="flex w-full">
       <AddTodoItem />
       <TodoList />
     </div>

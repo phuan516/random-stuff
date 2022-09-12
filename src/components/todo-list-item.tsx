@@ -13,7 +13,7 @@ const TodoListItem = ({ title, status, dueDate, labels, update }) => {
 
   return (
     <div
-      className="w-96 p-3 rounded-md shadow-lg mr-1 hover:cursor-pointer hover:shadow-2xl text-white h-max"
+      className="w-96 p-3 rounded-md flex-shrink-0 shadow-lg mr-1 mb-1 hover:cursor-pointer hover:shadow-2xl text-white h-max"
       style={{ backgroundColor: statusColor[status] }}
       onClick={() => {
         setDetailedDisplay(!detailedDisplay);
@@ -25,11 +25,11 @@ const TodoListItem = ({ title, status, dueDate, labels, update }) => {
           <div className="my-2 font-bold">
             <p>{status.toUpperCase()}</p>
           </div>
-          <div className="relative no-wrap flex flex-row my-2">
+          <div className="relative no-wrap flex flex-wrap">
             {labels.map((label) => (
               <span
                 key={label.name}
-                className="py-0.5 p-3 rounded-full text-xs mr-2 font-bold"
+                className="py-0.5 p-3 rounded-full text-xs mr-1 mb-1 font-bold"
                 style={{
                   backgroundColor: `#${label.color}`,
                   color: `${invertColor(label.color)}`,
