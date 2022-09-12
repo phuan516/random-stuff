@@ -5,7 +5,7 @@ import { fetcher } from "../lib/fetcher";
 import TodoListItem from "./todo-list-item";
 import { formatDate } from "../lib/format-date";
 import { withinDate } from "../lib/within-date";
-import { sortTodoList } from "../lib/sortTodoList";
+import { sortTodoList } from "../lib/sort-todo-list";
 
 const TodoList = () => {
   const { mutate } = useSWRConfig();

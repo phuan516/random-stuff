@@ -1,13 +1,15 @@
-import clientPromise from "../../lib/mongoClient";
+import clientPromise from "../../lib/mongo-client";
 
 const handle = async (req, res) => {
   const client = await clientPromise;
   const db = client.db(process.env.MONGODB_DB);
   const labelsCollection = db.collection("labels");
 
-  const { name, color } = JSON.parse(req.body);
+  const labels = JSON.parse(req.body);
 
-  await labelsCollection.insertOne({ name, color: color.hex.substring(1) });
+  await labelsCollection.deleteOne({
+    name: { $in: labels.map((label) => label.value) },
+  });
 
   res.status(200).json();
 };

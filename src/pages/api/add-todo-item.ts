@@ -1,4 +1,4 @@
-import clientPromise from "../../lib/mongoClient";
+import clientPromise from "../../lib/mongo-client";
 
 const handle = async (req, res) => {
   const client = await clientPromise;

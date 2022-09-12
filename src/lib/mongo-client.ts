@@ -1,10 +1,15 @@
 import { MongoClient } from "mongodb";
-import nextConnect from "next-connect";
 import * as dotenv from "dotenv";
 
 dotenv.config({ path: `${__dirname}/../../../.env.local` });
 
 const uri = process.env.MONGODB_URI;
+
+if (!uri) {
+  throw new Error(
+    "Please define the MONGODB_URI environment variable inside .env.local"
+  );
+}
 
 let client;
 let clientPromise;
