@@ -1,10 +1,13 @@
 import useSWR, { useSWRConfig } from "swr";
 import { useState, useEffect } from "react";
+import { useSession } from "next-auth/react";
 
 import { fetcher } from "../lib/fetcher";
 import ArchivedTodoItems from "../components/archived-todo-items";
+import { adminEmail } from "../lib/admin-email";
 
 const History = () => {
+  const { data: session, status } = useSession();
   const { mutate } = useSWRConfig();
   const { data } = useSWR("/api/get-archived-todo-list", fetcher);
 
@@ -40,22 +43,36 @@ const History = () => {
     data && setArchivedTodoList(data);
   }, [data]);
 
+  if (status === "loading") {
+    return <p>Loading...</p>;
+  }
+
+  if (status === "unauthenticated") {
+    return <p>Sign in to view this page</p>;
+  }
+
   return (
-    <div className="m-5">
-      {archivedTodoList.length > 0 ? (
-        archivedTodoList.map((item) => (
-          <div key={item._id}>
-            <h1 className="font-bold text-lg">{item._id}</h1>
-            <ArchivedTodoItems
-              list={filterArchivedItems(item.list)}
-              update={update}
-            />
-          </div>
-        ))
+    <>
+      {session.user.email === adminEmail ? (
+        <div className="m-5">
+          {archivedTodoList.length > 0 ? (
+            archivedTodoList.map((item) => (
+              <div key={item._id}>
+                <h1 className="font-bold text-lg">{item._id}</h1>
+                <ArchivedTodoItems
+                  list={filterArchivedItems(item.list)}
+                  update={update}
+                />
+              </div>
+            ))
+          ) : (
+            <h2 className="font-bold text-lg">No Archived items</h2>
+          )}
+        </div>
       ) : (
-        <h2 className="font-bold text-lg">No Archived items</h2>
+        <p>Access Denied</p>
       )}
-    </div>
+    </>
   );
 };
 
