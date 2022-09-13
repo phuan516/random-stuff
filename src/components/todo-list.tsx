@@ -41,8 +41,6 @@ const TodoList = () => {
     data && setTodoList(data);
   }, [data]);
 
-  console.log(withinDate("2022-09-11"));
-
   return (
     <div>
       {todoList ? (
