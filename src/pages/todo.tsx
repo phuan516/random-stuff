@@ -4,6 +4,8 @@ import { useSession } from "next-auth/react";
 import AddTodoItem from "../components/add-todo-item";
 import TodoList from "../components/todo-list";
 import { adminEmail } from "../lib/admin-email";
+import Unauthorize from "../components/unauthorize";
+import AccessDenied from "../components/access-denied";
 
 const Todo = () => {
   const { data: session, status } = useSession();
@@ -13,7 +15,7 @@ const Todo = () => {
   }
 
   if (status === "unauthenticated") {
-    return <p>Sign in to view this page</p>;
+    return <Unauthorize />;
   }
 
   return (
@@ -24,7 +26,7 @@ const Todo = () => {
           <TodoList />
         </div>
       ) : (
-        <p>Access Denied</p>
+        <AccessDenied />
       )}
     </>
   );
