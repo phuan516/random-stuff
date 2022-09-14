@@ -3,6 +3,8 @@ import { useSession } from "next-auth/react";
 
 import LabelSetting from "../components/settings/label-settings/label-settings";
 import { adminEmail } from "../lib/admin-email";
+import Unauthorize from "../components/unauthorize";
+import AccessDenied from "../components/access-denied";
 
 const Setting = () => {
   const { data: session, status } = useSession();
@@ -12,16 +14,12 @@ const Setting = () => {
   }
 
   if (status === "unauthenticated") {
-    return <p>Sign in to view this page</p>;
+    return <Unauthorize />;
   }
 
   return (
     <>
-      {session.user.email === adminEmail ? (
-        <LabelSetting />
-      ) : (
-        <p>Access Denied</p>
-      )}
+      {session.user.email === adminEmail ? <LabelSetting /> : <AccessDenied />}
     </>
   );
 };

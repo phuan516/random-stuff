@@ -5,6 +5,8 @@ import { useSession } from "next-auth/react";
 import { fetcher } from "../lib/fetcher";
 import ArchivedTodoItems from "../components/archived-todo-items";
 import { adminEmail } from "../lib/admin-email";
+import Unauthorize from "../components/unauthorize";
+import AccessDenied from "../components/access-denied";
 
 const History = () => {
   const { data: session, status } = useSession();
@@ -48,7 +50,7 @@ const History = () => {
   }
 
   if (status === "unauthenticated") {
-    return <p>Sign in to view this page</p>;
+    return <Unauthorize />;
   }
 
   return (
@@ -70,7 +72,7 @@ const History = () => {
           )}
         </div>
       ) : (
-        <p>Access Denied</p>
+        <AccessDenied />
       )}
     </>
   );
