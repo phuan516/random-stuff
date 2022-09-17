@@ -31,8 +31,8 @@ const TodoListItem = ({ title, status, dueDate, labels, update }) => {
                 key={label.name}
                 className="py-0.5 p-3 rounded-full text-xs mr-1 mb-1 font-bold"
                 style={{
-                  backgroundColor: `#${label.color}`,
-                  color: `${invertColor(label.color)}`,
+                  backgroundColor: label.color,
+                  color: invertColor(label.color, true),
                 }}
               >
                 {label.name}

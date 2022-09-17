@@ -7,7 +7,7 @@ const handle = async (req, res) => {
 
   const { name, color } = JSON.parse(req.body);
 
-  await labelsCollection.insertOne({ name, color: color.hex.substring(1) });
+  await labelsCollection.insertOne({ name, color });
 
   res.status(200).json();
 };
