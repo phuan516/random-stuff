@@ -2,7 +2,7 @@ import Select from "react-select";
 import { useEffect, useState } from "react";
 import useSWR from "swr";
 
-import { fetcher } from "../../../lib/fetcher";
+import { fetcher } from "../lib/fetcher";
 
 const deleteLabels = async (labels) => {
   await fetch(`/api/delete-labels`, {
