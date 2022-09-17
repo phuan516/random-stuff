@@ -12,6 +12,10 @@ const AddLabel = () => {
   const [name, setName] = useState("");
   const [color, setColor] = useState("#8957e5");
 
+  const handleChangeColor = (color) => {
+    setColor(color.hex);
+  };
+
   return (
     <form className="mb-2" onSubmit={() => addLabel({ name, color })}>
       <label className="block text-sm font-medium text-gray-700">Name</label>
@@ -26,7 +30,7 @@ const AddLabel = () => {
       <TwitterPicker
         width="360px"
         color={color}
-        onChangeComplete={setColor}
+        onChangeComplete={handleChangeColor}
         triangle={"hide"}
       />
       <input

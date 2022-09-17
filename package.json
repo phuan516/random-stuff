@@ -11,6 +11,7 @@
   "dependencies": {
     "@headlessui/react": "^1.7.0",
     "@heroicons/react": "^1.0.6",
+    "clsx": "^1.2.1",
     "date-fns": "^2.29.2",
     "dotenv": "^16.0.1",
     "mongodb": "^4.9.0",
@@ -27,6 +28,7 @@
   "devDependencies": {
     "@types/node": "^18.7.16",
     "@types/react": "^18.0.18",
+    "@types/react-color": "^3.0.6",
     "autoprefixer": "^10.4.8",
     "eslint": "8.23.0",
     "eslint-config-next": "12.2.5",
