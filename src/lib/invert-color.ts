@@ -21,7 +21,7 @@ const invertColor = (hex: string, bw: boolean) => {
   let b = Number.parseInt(hex.slice(4, 6), 16);
 
   if (bw) {
-    return r * 0.299 + g * 0.587 + b * 0.114 > 186 ? "#000000" : "#FFFFFF";
+    return r * 0.299 + g * 0.587 + b * 0.114 > 186 ? "#000000" : "#ffffff";
   }
 
   const newR = (255 - r).toString(16);
