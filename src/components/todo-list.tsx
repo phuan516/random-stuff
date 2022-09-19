@@ -44,7 +44,7 @@ const TodoList = () => {
   return (
     <div>
       {todoList ? (
-        <div className="flex flex-col mt-4">
+        <div className="flex flex-col mt-4 ml-5">
           {todoList.map((day) => (
             <div key={day._id}>
               <h1

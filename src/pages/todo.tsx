@@ -6,6 +6,7 @@ import TodoList from "../components/todo-list";
 import { adminEmail } from "../lib/admin-email";
 import Unauthorize from "../components/unauthorize";
 import AccessDenied from "../components/access-denied";
+import SideBar from "../components/side-bar/side-bar";
 
 const Todo = () => {
   const { data: session, status } = useSession();
@@ -20,8 +21,9 @@ const Todo = () => {
 
   return (
     <>
+      <SideBar />
       {session.user.email === adminEmail ? (
-        <div className="flex w-full">
+        <div className="flex w-full ml-20">
           <AddTodoItem />
           <TodoList />
         </div>

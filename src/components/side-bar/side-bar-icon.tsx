@@ -3,7 +3,7 @@ import Link from "next/link";
 
 const SideBarIcon = ({ icon, text, link }) => (
   <Link href={link}>
-    <div className="side-bar-icon group">
+    <div className="side-bar-icon group z-50">
       {icon}
       <span className="side-bar-tooltip group-hover:scale-100">{text}</span>
     </div>
