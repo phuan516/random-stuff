@@ -3,6 +3,7 @@ import clsx from "clsx";
 import { ChromePicker } from "react-color";
 
 import { contrast } from "../../lib/calculate-contrast";
+import SideBar from "../../components/side-bar/side-bar";
 
 const contrastRequirements = {
   smallAA: 4.5,
@@ -43,7 +44,8 @@ const ColorPicker = () => {
         backgroundColor: formatColor(background),
       }}
     >
-      <div className="p-5 rounded-md shadow-lg bg-white flex flex-row">
+      <SideBar />
+      <div className="p-5 rounded-md shadow-lg bg-white flex flex-row ml-20">
         <div className="flex flex-col">
           <div
             style={{
