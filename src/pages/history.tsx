@@ -7,6 +7,7 @@ import ArchivedTodoItems from "../components/archived-todo-items";
 import { adminEmail } from "../lib/admin-email";
 import Unauthorize from "../components/unauthorize";
 import AccessDenied from "../components/access-denied";
+import SideBar from "../components/side-bar/side-bar";
 
 const History = () => {
   const { data: session, status } = useSession();
@@ -55,8 +56,9 @@ const History = () => {
 
   return (
     <>
+      <SideBar />
       {session.user.email === adminEmail ? (
-        <div className="m-5">
+        <div className="ml-20 my-5">
           {archivedTodoList.length > 0 ? (
             archivedTodoList.map((item) => (
               <div key={item._id}>
@@ -68,7 +70,7 @@ const History = () => {
               </div>
             ))
           ) : (
-            <h2 className="font-bold text-lg">No Archived items</h2>
+            <h2 className="font-bold text-lg ml-20">No Archived items</h2>
           )}
         </div>
       ) : (
