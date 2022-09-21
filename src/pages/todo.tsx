@@ -23,7 +23,7 @@ const Todo = () => {
     <>
       <SideBar />
       {session.user.email === adminEmail ? (
-        <div className="flex w-full ml-20">
+        <div className="flex ml-20">
           <AddTodoItem />
           <TodoList />
         </div>
