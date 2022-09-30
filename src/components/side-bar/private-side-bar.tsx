@@ -14,16 +14,8 @@ const PrivateSideBar = () => {
         <PrivateSideBarIcons />
       </div>
       <div>
-        <SideBarIcon
-          icon={<CgProfile size="18" />}
-          text="Profile"
-          link="/profile"
-        />
-        <SideBarIcon
-          icon={<AiOutlineSetting size="18" />}
-          text="Setting"
-          link="/setting"
-        />
+        <SideBarIcon icon={<CgProfile size="18" />} link="/profile" />
+        <SideBarIcon icon={<AiOutlineSetting size="18" />} link="/setting" />
       </div>
     </div>
   );
