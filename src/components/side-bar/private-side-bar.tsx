@@ -5,6 +5,7 @@ import { CgProfile } from "react-icons/cg";
 import PrivateSideBarIcons from "./private-side-bar-icons";
 import PublicSideBarIcons from "./public-side-bar-icons";
 import SideBarIcon from "./side-bar-icon";
+import GithubStatus from "./github-status";
 
 const PrivateSideBar = () => {
   return (
@@ -14,16 +15,9 @@ const PrivateSideBar = () => {
         <PrivateSideBarIcons />
       </div>
       <div>
-        <SideBarIcon
-          icon={<CgProfile size="18" />}
-          text="Profile"
-          link="/profile"
-        />
-        <SideBarIcon
-          icon={<AiOutlineSetting size="18" />}
-          text="Setting"
-          link="/setting"
-        />
+        <GithubStatus />
+        <SideBarIcon icon={<AiOutlineSetting size="18" />} link="/setting" />
+        <SideBarIcon icon={<CgProfile size="18" />} link="/profile" />
       </div>
     </div>
   );

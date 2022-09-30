@@ -6,16 +6,8 @@ import SideBarIcon from "./side-bar-icon";
 const PublicSideBarIcons = () => {
   return (
     <div>
-      <SideBarIcon
-        icon={<AiOutlineUnorderedList size="18" />}
-        text="Todo"
-        link="/todo"
-      />
-      <SideBarIcon
-        icon={<AiOutlineHistory size="18" />}
-        text="History"
-        link="history"
-      />
+      <SideBarIcon icon={<AiOutlineUnorderedList size="18" />} link="/todo" />
+      <SideBarIcon icon={<AiOutlineHistory size="18" />} link="history" />
     </div>
   );
 };
