@@ -3,7 +3,7 @@ import AddLabel from "./add-label";
 
 const LabelSetting = () => {
   return (
-    <div className="w-96 flex flex-col p-3 rounded-md shadow-lg m-5 bg-white ml-20">
+    <div className="w-96 flex flex-col p-3 rounded-md shadow-lg m-5 bg-white ml-4">
       <AddLabel />
       <DeleteLabels />
     </div>
