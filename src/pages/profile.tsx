@@ -1,14 +1,13 @@
 import { useSession, signIn, signOut } from "next-auth/react";
 import React from "react";
 
-import SideBar from "../components/side-bar/side-bar";
+import Layout from "../components/layout";
 
 export default function Component() {
   const { data: session } = useSession();
 
   return (
-    <div>
-      <SideBar />
+    <Layout>
       {!session && (
         <div className="flex min-h-full items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
           <div className="w-full max-w-md space-y-8">
@@ -57,9 +56,9 @@ export default function Component() {
               </div>
             </div>
           </div>
-          <pre className="ml-20">{JSON.stringify(session, null, 2)}</pre>
+          <pre className="ml-4">{JSON.stringify(session, null, 2)}</pre>
         </>
       )}
-    </div>
+    </Layout>
   );
 }

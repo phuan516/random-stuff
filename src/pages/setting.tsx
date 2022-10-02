@@ -5,7 +5,7 @@ import LabelSetting from "../components/label-settings";
 import { adminEmail } from "../lib/admin-email";
 import Unauthorize from "../components/unauthorize";
 import AccessDenied from "../components/access-denied";
-import SideBar from "../components/side-bar/side-bar";
+import Layout from "../components/layout";
 
 const Setting = () => {
   const { data: session, status } = useSession();
@@ -15,14 +15,17 @@ const Setting = () => {
   }
 
   if (status === "unauthenticated") {
-    return <Unauthorize />;
+    return (
+      <Layout>
+        <Unauthorize />
+      </Layout>
+    );
   }
 
   return (
-    <>
-      <SideBar />
+    <Layout>
       {session.user.email === adminEmail ? <LabelSetting /> : <AccessDenied />}
-    </>
+    </Layout>
   );
 };
 export default Setting;
