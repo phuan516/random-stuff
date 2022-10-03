@@ -5,9 +5,12 @@ const handle = async (req, res) => {
   const db = client.db(process.env.MONGODB_DB);
   const todoCollection = db.collection("todo");
 
-  const { title, status } = JSON.parse(req.body);
+  const { title, status, dueDate } = JSON.parse(req.body);
 
-  await todoCollection.updateOne({ title }, { $set: { status } });
+  await todoCollection.updateOne(
+    { title, dueDate: new Date(dueDate) },
+    { $set: { status } }
+  );
 
   const fortNight = new Date(Date.now() - 12096e5);
 

@@ -11,10 +11,10 @@ const TodoList = () => {
   const { mutate } = useSWRConfig();
   const { data } = useSWR("/api/get-todo-items", fetcher);
 
-  const updateStatus = async (title, status) => {
+  const updateStatus = async (title, status, dueDate) => {
     await fetch(`/api/update-todo-status`, {
       method: "POST",
-      body: JSON.stringify({ title, status }),
+      body: JSON.stringify({ title, status, dueDate }),
     });
     mutate("/api/get-todo-items");
   };
@@ -33,7 +33,7 @@ const TodoList = () => {
       updatedTodoList[objIndex].list[listIndex].status = status;
 
       setTodoList(updatedTodoList);
-      updateStatus(title, status);
+      updateStatus(title, status, dueDate);
     }
   };
 
