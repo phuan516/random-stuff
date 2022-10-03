@@ -7,7 +7,10 @@ const handle = async (req, res) => {
 
   const { title, status, dueDate } = JSON.parse(req.body);
 
-  await todoCollection.updateOne({ title, dueDate }, { $set: { status } });
+  await todoCollection.updateOne(
+    { title, dueDate: new Date(dueDate) },
+    { $set: { status } }
+  );
 
   const fortNight = new Date(Date.now() - 12096e5);
 
