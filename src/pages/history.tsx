@@ -14,10 +14,10 @@ const History = () => {
   const { mutate } = useSWRConfig();
   const { data } = useSWR("/api/get-archived-todo-list", fetcher);
 
-  const updateStatus = async (title, status) => {
+  const updateStatus = async (title, status, dueDate) => {
     await fetch(`/api/update-todo-status`, {
       method: "POST",
-      body: JSON.stringify({ title, status }),
+      body: JSON.stringify({ title, status, dueDate }),
     });
     mutate("/api/get-archived-todo-list");
   };
@@ -39,7 +39,7 @@ const History = () => {
     updatedArchivedTodoList[objIndex].list[listIndex].status = status;
     setArchivedTodoList(updatedArchivedTodoList);
 
-    updateStatus(title, status);
+    updateStatus(title, status, dueDate);
   };
 
   useEffect(() => {
