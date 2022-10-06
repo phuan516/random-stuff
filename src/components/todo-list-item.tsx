@@ -7,7 +7,7 @@ import { statusColor } from "../lib/status";
 import StatusButtons from "./status-buttons";
 import EditTodoItem from "./edit-todo-item";
 
-const TodoListItem = ({ title, status, dueDate, labels, update }) => {
+const TodoListItem = ({ id, title, status, dueDate, labels, update }) => {
   const [detailedDisplay, setDetailedDisplay] = useState(false);
   const [displayModal, setDisplayModal] = useState(false);
 
@@ -47,8 +47,8 @@ const TodoListItem = ({ title, status, dueDate, labels, update }) => {
             />
           </div>
           <StatusButtons
+            id={id}
             status={status}
-            title={title}
             update={update}
             dueDate={dueDate}
           />
@@ -57,6 +57,7 @@ const TodoListItem = ({ title, status, dueDate, labels, update }) => {
       <EditTodoItem
         open={displayModal}
         setOpen={setDisplayModal}
+        id={id}
         title={title}
         dueDate={dueDate}
         selectedLabels={labels}

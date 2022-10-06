@@ -14,10 +14,10 @@ const History = () => {
   const { mutate } = useSWRConfig();
   const { data } = useSWR("/api/get-archived-todo-list", fetcher);
 
-  const updateStatus = async (title, status, dueDate) => {
+  const updateStatus = async (id, status, dueDate) => {
     await fetch(`/api/update-todo-status`, {
       method: "POST",
-      body: JSON.stringify({ title, status, dueDate }),
+      body: JSON.stringify({ id, status, dueDate }),
     });
     mutate("/api/get-archived-todo-list");
   };
@@ -28,18 +28,18 @@ const History = () => {
 
   const [archivedTodoList, setArchivedTodoList] = useState([]);
 
-  const update = (title, status, dueDate) => {
+  const update = (id, status, dueDate) => {
     const objIndex = archivedTodoList.findIndex((obj) => obj._id === dueDate);
 
     const updatedArchivedTodoList = archivedTodoList;
     const listIndex = archivedTodoList[objIndex].list.findIndex(
-      (todo) => todo.title === title
+      (todo) => todo._id === id
     );
 
     updatedArchivedTodoList[objIndex].list[listIndex].status = status;
     setArchivedTodoList(updatedArchivedTodoList);
 
-    updateStatus(title, status, dueDate);
+    updateStatus(id, status, dueDate);
   };
 
   useEffect(() => {

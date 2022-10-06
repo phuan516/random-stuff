@@ -1,3 +1,5 @@
+import { ObjectId } from "mongodb";
+
 import clientPromise from "../../lib/mongo-client";
 
 const handle = async (req, res) => {
@@ -6,16 +8,16 @@ const handle = async (req, res) => {
   const labelsCollection = db.collection("labels");
   const todoCollection = db.collection("todo");
 
-  const { title, dueDate, newTitle, newDueDate, newLabels } = JSON.parse(
-    req.body
-  );
+  const { id, newTitle, newDueDate, newLabels } = JSON.parse(req.body);
+
+  console.log(id, newTitle, newDueDate, newLabels);
 
   const labels = await labelsCollection
     .find({ name: { $in: [...newLabels.map((label) => label.value)] } })
     .toArray();
 
   await todoCollection.findOneAndUpdate(
-    { title, dueDate: new Date(dueDate) },
+    { _id: new ObjectId(id) },
     {
       $set: {
         title: newTitle,

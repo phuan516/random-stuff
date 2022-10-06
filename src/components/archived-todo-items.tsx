@@ -17,7 +17,7 @@ const ArchivedTodoItems = ({ list, update }) => {
                   style={{ backgroundColor: "#62a3c6" }}
                   className="rounded-md p-1 text-white text-xs font-bold mr-2"
                   onClick={() => {
-                    update(todo.title, "Ready", todo.dueDate);
+                    update(todo._id, "Ready", todo.dueDate);
                   }}
                 >
                   Restore
@@ -25,7 +25,7 @@ const ArchivedTodoItems = ({ list, update }) => {
                 <button
                   className="rounded-md p-1 text-white text-xs font-bold bg-red-600"
                   onClick={() => {
-                    update(todo.title, "Deleted", todo.dueDate);
+                    update(todo._id, "Deleted", todo.dueDate);
                   }}
                 >
                   Delete
