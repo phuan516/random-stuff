@@ -79,6 +79,7 @@ const EditTodoItem = ({ open, setOpen, title, selectedLabels, dueDate }) => {
                         onSubmit={() =>
                           updateTodoItem({
                             title,
+                            dueDate,
                             newTitle,
                             newDueDate,
                             newLabels,
