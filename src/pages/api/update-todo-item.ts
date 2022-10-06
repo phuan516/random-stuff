@@ -6,14 +6,16 @@ const handle = async (req, res) => {
   const labelsCollection = db.collection("labels");
   const todoCollection = db.collection("todo");
 
-  const { title, newTitle, newDueDate, newLabels } = JSON.parse(req.body);
+  const { title, dueDate, newTitle, newDueDate, newLabels } = JSON.parse(
+    req.body
+  );
 
   const labels = await labelsCollection
     .find({ name: { $in: [...newLabels.map((label) => label.value)] } })
     .toArray();
 
   await todoCollection.findOneAndUpdate(
-    { title },
+    { title, dueDate: new Date(dueDate) },
     {
       $set: {
         title: newTitle,
