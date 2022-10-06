@@ -11,29 +11,29 @@ const TodoList = () => {
   const { mutate } = useSWRConfig();
   const { data } = useSWR("/api/get-todo-items", fetcher);
 
-  const updateStatus = async (title, status, dueDate) => {
+  const updateStatus = async (id, status) => {
     await fetch(`/api/update-todo-status`, {
       method: "POST",
-      body: JSON.stringify({ title, status, dueDate }),
+      body: JSON.stringify({ id, status }),
     });
     mutate("/api/get-todo-items");
   };
 
   const [todoList, setTodoList] = useState<any>();
 
-  const updateLocal = (title, status, dueDate) => {
+  const updateLocal = (id, status, dueDate) => {
     if (todoList) {
       const objIndex = todoList.findIndex((obj) => obj._id === dueDate);
 
       const updatedTodoList = todoList;
       const listIndex = todoList[objIndex].list.findIndex(
-        (todo) => todo.title === title
+        (todo) => todo._id === id
       );
 
       updatedTodoList[objIndex].list[listIndex].status = status;
 
       setTodoList(updatedTodoList);
-      updateStatus(title, status, dueDate);
+      updateStatus(id, status);
     }
   };
 
@@ -57,6 +57,7 @@ const TodoList = () => {
                 {sortTodoList(day.list).map((item) => (
                   <TodoListItem
                     key={item._id}
+                    id={item._id}
                     title={item.title}
                     dueDate={item.dueDate}
                     status={item.status}

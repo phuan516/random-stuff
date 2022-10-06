@@ -12,7 +12,14 @@ const formatSelectData = (data) => {
   }));
 };
 
-const EditTodoItem = ({ open, setOpen, title, selectedLabels, dueDate }) => {
+const EditTodoItem = ({
+  open,
+  setOpen,
+  title,
+  selectedLabels,
+  dueDate,
+  id,
+}) => {
   const [newTitle, setNewTitle] = useState(title);
   const [newDueDate, setNewDueDate] = useState(dueDate);
   const [newLabels, setNewLabels] = useState([]);
@@ -78,8 +85,7 @@ const EditTodoItem = ({ open, setOpen, title, selectedLabels, dueDate }) => {
                       <form
                         onSubmit={() =>
                           updateTodoItem({
-                            title,
-                            dueDate,
+                            id,
                             newTitle,
                             newDueDate,
                             newLabels,

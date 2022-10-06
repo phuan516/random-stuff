@@ -1,3 +1,4 @@
+import { ObjectId } from "mongodb";
 import clientPromise from "../../lib/mongo-client";
 
 const handle = async (req, res) => {
@@ -5,10 +6,10 @@ const handle = async (req, res) => {
   const db = client.db(process.env.MONGODB_DB);
   const todoCollection = db.collection("todo");
 
-  const { title, status, dueDate } = JSON.parse(req.body);
+  const { id, status } = JSON.parse(req.body);
 
   await todoCollection.updateOne(
-    { title, dueDate: new Date(dueDate) },
+    { _id: new ObjectId(id) },
     { $set: { status } }
   );
 
