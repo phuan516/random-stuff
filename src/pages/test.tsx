@@ -1,11 +1,13 @@
 import React from "react";
 
-import SideBar from "../components/side-bar/side-bar";
+import { romanToInt } from "../lib/roman-to-int";
 
 const Test = () => {
+  console.log(romanToInt("MCMXCIV"));
+
   return (
     <div>
-      <SideBar />
+      <h1>test</h1>
     </div>
   );
 };
