@@ -5,13 +5,6 @@ import { format } from "date-fns";
 
 import { fetcher } from "../lib/fetcher";
 
-const addTodoItem = async (item) => {
-  await fetch(`/api/add-todo-item`, {
-    method: "POST",
-    body: JSON.stringify(item),
-  });
-};
-
 const AddTodoItem = () => {
   const [title, setTitle] = useState(undefined);
   const [date, setDate] = useState(format(new Date(), "yyyy-MM-dd").toString());
@@ -24,6 +17,13 @@ const AddTodoItem = () => {
     setLabelsToAdd(selectedOption);
   };
 
+  const addTodoItem = async () => {
+    await fetch(`/api/add-todo-item`, {
+      method: "POST",
+      body: JSON.stringify({ title, dueDate: date, labelsToAdd }),
+    });
+  };
+
   useEffect(() => {
     data &&
       setLabels(
@@ -33,15 +33,7 @@ const AddTodoItem = () => {
 
   return (
     <div className="h-64 w-96 flex-shrink-0 p-3 rounded-md shadow-lg bg-white">
-      <form
-        onSubmit={() =>
-          addTodoItem({
-            title,
-            dueDate: date,
-            labelsToAdd,
-          })
-        }
-      >
+      <form onSubmit={addTodoItem}>
         <label className="block text-sm font-medium text-gray-700">Title</label>
         <input
           type="text"
