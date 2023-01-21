@@ -7,7 +7,7 @@ const handle = async (req, res) => {
 
   const labels = JSON.parse(req.body);
 
-  await labelsCollection.deleteOne({
+  await labelsCollection.deleteMany({
     name: { $in: labels.map((label) => label.value) },
   });
 
