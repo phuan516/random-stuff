@@ -26,7 +26,7 @@ export default function Home() {
           </p>
           <p className="mt-2">- 📫 How to reach me: phuan516@mtroyal.ca</p>
           <p className="mt-2">
-            - 📄 Know about my experiences:
+            - 📄 Know about my experiences: 
             <a href="https://peterhuang.vercel.app/Peter%20Huang%20-%20Resume.pdf">
               Resume
             </a>
